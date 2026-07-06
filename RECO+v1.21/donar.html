@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="darkmode.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RECO+ | Donar / Solicitar Ayuda</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="donar.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ── BUBBLE NAV — CSS variables for light/dark ── */
+
+/* MODO CLARO */
+:root {
+  --nav-bg:               rgba(242, 250, 244, 0.55);
+  --nav-border:           rgba(168, 218, 181, 0.55);
+  --nav-shadow:           0 8px 32px rgba(30, 80, 40, 0.14), 0 2px 8px rgba(30, 80, 40, 0.08);
+  --nav-link-color:       #2a4a34;
+  --nav-link-hover-bg:    rgba(45, 140, 78, 0.10);
+  --nav-link-hover-color: #1a5c2a;
+  --nav-link-active-bg:   rgba(45, 140, 78, 0.14);
+  --nav-logo-filter:      none;
+  --nav-lang-bg:          rgba(45, 140, 78, 0.08);
+  --nav-lang-border:      rgba(45, 140, 78, 0.22);
+  --nav-lang-color:       #2a4a34;
+  --nav-dm-bg:            rgba(45, 140, 78, 0.08);
+  --nav-dm-border:        rgba(45, 140, 78, 0.22);
+  --nav-cta-bg:           #2d8c4e;
+  --nav-cta-color:        #fff;
+  --nav-cta-hover:        #1a5c2a;
+}
+
+/* MODO OSCURO */
+html.dark {
+  --nav-bg:               rgba(12, 22, 14, 0.55);
+  --nav-border:           rgba(61, 170, 96, 0.20);
+  --nav-shadow:           0 8px 32px rgba(0, 0, 0, 0.40), 0 2px 8px rgba(0, 0, 0, 0.28);
+  --nav-link-color:       rgba(212, 234, 216, 0.80);
+  --nav-link-hover-bg:    rgba(255, 255, 255, 0.08);
+  --nav-link-hover-color: #d4ead8;
+  --nav-link-active-bg:   rgba(255, 255, 255, 0.11);
+  --nav-logo-filter:      brightness(0) invert(1);
+  --nav-lang-bg:          rgba(255, 255, 255, 0.07);
+  --nav-lang-border:      rgba(255, 255, 255, 0.15);
+  --nav-lang-color:       rgba(212, 234, 216, 0.80);
+  --nav-dm-bg:            rgba(255, 255, 255, 0.07);
+  --nav-dm-border:        rgba(255, 255, 255, 0.15);
+  --nav-cta-bg:           #fff;
+  --nav-cta-color:        #111;
+  --nav-cta-hover:        #e8f5ec;
+}
+
+/* ── WRAPPER ── */
+.bubble-nav-wrapper {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: calc(100% - 48px);
+  max-width: 1160px;
+}
+
+/* ── PILL ── */
+.bubble-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--nav-border);
+  border-radius: 999px;
+  padding: 10px 14px 10px 20px;
+  box-shadow: var(--nav-shadow);
+  gap: 16px;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* ── LOGO ── */
+.bubble-nav__logo img {
+  height: 34px;
+  width: auto;
+  display: block;
+  filter: var(--nav-logo-filter);
+  flex-shrink: 0;
+  transition: filter 0.3s;
+}
+
+/* ── LINKS ── */
+.bubble-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+
+.bubble-nav__links a {
+  font-family: 'DM Sans', 'Arial', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--nav-link-color);
+  text-decoration: none;
+  padding: 6px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: color 0.18s, background 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.bubble-nav__links a svg {
+  opacity: 0.75;
+  flex-shrink: 0;
+  transition: opacity 0.18s;
+}
+
+.bubble-nav__links a:hover {
+  color: var(--nav-link-hover-color);
+  background: var(--nav-link-hover-bg);
+}
+
+.bubble-nav__links a:hover svg { opacity: 1; }
+
+.bubble-nav__links a.active {
+  color: var(--nav-link-hover-color);
+  background: var(--nav-link-active-bg);
+  font-weight: 600;
+}
+
+.bubble-nav__links a.active svg { opacity: 1; }
+
+/* ── RIGHT ACTIONS ── */
+.bubble-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ── DARK MODE PILL ── */
+.dm-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--nav-dm-bg);
+  border: 1px solid var(--nav-dm-border);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.dm-pill__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+  color: var(--nav-link-color);
+  opacity: 0.45;
+}
+
+html:not(.dark) .dm-pill__sun { opacity: 1; background: rgba(45,140,78,0.15); color: #d4a017; }
+html:not(.dark) .dm-pill__moon { opacity: 0.38; }
+html.dark .dm-pill__moon { opacity: 1; background: rgba(61,170,96,0.18); color: #c8d8ff; }
+html.dark .dm-pill__sun { opacity: 0.38; }
+
+/* ── LANG PILL ── */
+.lang-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--nav-lang-bg);
+  border: 1px solid var(--nav-lang-border);
+  border-radius: 999px;
+  padding: 5px 11px 5px 9px;
+  cursor: pointer;
+  font-family: 'DM Sans', 'Arial', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--nav-lang-color);
+  transition: background 0.18s;
+  letter-spacing: 0.02em;
+}
+
+.lang-pill:hover { background: var(--nav-link-hover-bg); }
+.lang-pill svg { opacity: 0.8; flex-shrink: 0; }
+.lang-pill__chevron { opacity: 0.6; }
+.lang-pill__label { color: var(--nav-lang-color); }
+
+/* ── CTA BUTTON ── */
+.bubble-nav__cta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--nav-cta-bg);
+  color: var(--nav-cta-color);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-family: 'DM Sans', 'Arial', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.bubble-nav__cta:hover {
+  background: var(--nav-cta-hover);
+  transform: translateY(-1px);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  .bubble-nav-wrapper { width: calc(100% - 24px); top: 10px; }
+  .bubble-nav__links { display: none; }
+  .bubble-nav { padding: 10px 14px; }
+}
+</style>
+<script>
+/* ── DM-PILL: manejado por darkmode.js (injectToggleButton conecta el .dm-pill) ── */
+
+/* ── LANG PILL ── */
+(function () {
+  function syncLangPill(lang) {
+    var esLabel = document.querySelector('.lang-pill .lang-label-es');
+    var enLabel = document.querySelector('.lang-pill .lang-label-en');
+    var btn     = document.querySelector('.lang-pill');
+    if (!btn) return;
+    if (lang === 'en') {
+      if (esLabel) esLabel.style.display = 'none';
+      if (enLabel) enLabel.style.display = 'inline';
+      btn.setAttribute('data-current', 'en');
+    } else {
+      if (esLabel) esLabel.style.display = 'inline';
+      if (enLabel) enLabel.style.display = 'none';
+      btn.setAttribute('data-current', 'es');
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    var saved = localStorage.getItem('reco-lang') || 'es';
+    syncLangPill(saved);
+    var origToggle = window.toggleLang;
+    if (origToggle) {
+      window.toggleLang = function () {
+        origToggle();
+        syncLangPill(localStorage.getItem('reco-lang') || 'es');
+      };
+    }
+  });
+  window.addEventListener('load', function () {
+    var origToggle = window.toggleLang;
+    if (origToggle && !origToggle._patched) {
+      window.toggleLang = function () {
+        origToggle();
+        syncLangPill(localStorage.getItem('reco-lang') || 'es');
+      };
+      window.toggleLang._patched = true;
+    }
+  });
+})();
+</script>
+</head>
+<body>
+
+  <!-- ── BUBBLE NAVBAR ── -->
+<div class="bubble-nav-wrapper">
+  <header class="bubble-nav">
+    <div class="bubble-nav__logo">
+      <img src="img/logo png nombre.png" alt="RECO+">
+    </div>
+
+    <nav class="bubble-nav__links">
+      <a href="index.html">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" width="15" height="15"><path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M7 18v-6h6v6"/></svg>
+        <span data-i18n="nav.inicio">Inicio</span>
+      </a>
+      <a href="mapa.html">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" width="15" height="15"><path d="M10 2a6 6 0 016 6c0 4-6 10-6 10S4 12 4 8a6 6 0 016-6z"/><circle cx="10" cy="8" r="2"/></svg>
+        <span data-i18n="nav.mapa">Mapa</span>
+      </a>
+      <a href="guia.html">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" width="15" height="15"><rect x="4" y="2" width="12" height="16" rx="1.5"/><path d="M4 5h12M7 2v16"/></svg>
+        <span data-i18n="nav.guia">Guía</span>
+      </a>
+      <a href="donar.html" class="active">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" width="15" height="15"><path d="M3 11c0-2.5 2-4 4-3l3 1.5 5-1.5c1.2-.2 2.5.6 2.5 2 0 1.2-.8 2-2 2l-3.5.5"/><path d="M3 11l2 5h3l7-4"/></svg>
+        <span data-i18n="nav.donar">Donar / Ayuda</span>
+      </a>
+      <a href="blog.html">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" width="15" height="15"><rect x="3" y="3" width="14" height="14" rx="1.5"/><path d="M6 7h8M6 10h8M6 13h5"/></svg>
+        <span data-i18n="nav.blog">Blog</span>
+      </a>
+      <a href="alianzas.html">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" width="15" height="15"><path d="M7 9l2.5 2.5L14 6"/><path d="M3.5 11.5C2 10 2 7.5 3.5 6l2-2c1.5-1.5 4-1.5 5.5 0l.5.5"/><path d="M8.5 14.5l.5.5c1.5 1.5 4 1.5 5.5 0l2-2c1.5-1.5 1.5-4 0-5.5"/></svg>
+        <span data-i18n="nav.alianzas">Alianzas</span>
+      </a>
+      <a href="contacto.html">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" width="15" height="15"><rect x="2" y="5" width="16" height="12" rx="1.5"/><path d="M2 7l8 5 8-5"/></svg>
+        <span data-i18n="nav.contacto">Contacto</span>
+      </a>
+    </nav>
+
+    <!-- Right side: dark mode pill + lang pill + CTA -->
+    <!-- navbar__spacer keeps compatibility with darkmode.js auto-injection -->
+    <div class="bubble-nav__actions navbar__spacer">
+
+      <!-- Dark mode pill -->
+      <div class="dm-pill" id="darkModeToggle" role="button" title="Cambiar modo claro/oscuro" aria-label="Toggle dark mode">
+        <span class="dm-pill__btn dm-pill__sun dm-sun" id="dmSunBtn">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" width="16" height="16">
+            <circle cx="10" cy="10" r="3.5"/>
+            <line x1="10" y1="2" x2="10" y2="4.5"/><line x1="10" y1="15.5" x2="10" y2="18"/>
+            <line x1="2" y1="10" x2="4.5" y2="10"/><line x1="15.5" y1="10" x2="18" y2="10"/>
+            <line x1="4.4" y1="4.4" x2="6.2" y2="6.2"/><line x1="13.8" y1="13.8" x2="15.6" y2="15.6"/>
+            <line x1="15.6" y1="4.4" x2="13.8" y2="6.2"/><line x1="6.2" y1="13.8" x2="4.4" y2="15.6"/>
+          </svg>
+        </span>
+        <span class="dm-pill__btn dm-pill__moon dm-moon" id="dmMoonBtn">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15">
+            <path d="M17.3 13.3A8 8 0 016.7 2.7a7 7 0 100 14.6 7.9 7.9 0 0010.6-4z"/>
+          </svg>
+        </span>
+      </div>
+
+      <!-- Language pill -->
+      <button class="lang-pill" onclick="toggleLang()" aria-label="Cambiar idioma" data-current="es">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" width="15" height="15">
+          <circle cx="10" cy="10" r="8"/>
+          <ellipse cx="10" cy="10" rx="3.5" ry="8"/>
+          <line x1="2" y1="10" x2="18" y2="10"/>
+        </svg>
+        <span class="lang-pill__label lang-label-es">ES</span>
+        <span class="lang-pill__label lang-label-en" style="display:none">EN</span>
+        <svg class="lang-pill__chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" width="11" height="11" stroke-linecap="round">
+          <path d="M5 7l5 5 5-5"/>
+        </svg>
+      </button>
+
+      <button class="bubble-nav__cta" data-i18n="nav.unete">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15"><path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-7 8a7 7 0 1114 0H3z"/></svg>
+        Únete
+      </button>
+
+    </div>
+  </header>
+</div>
+
+  <!-- ========== HERO ========== -->
+  <section class="donar-hero">
+    <div class="donar-hero__content">
+      <h1 class="donar-hero__title" data-i18n="donar.hero.title">Donar /<br>Solicitar ayuda</h1>
+      <p class="donar-hero__subtitle" data-i18n="donar.hero.subtitle">
+        Comparte lo que ya no necesitas o pide apoyo a<br>
+        quienes pueden ayudarte. Juntos construimos<br>
+        una comunidad más sólida y sostenible.
+      </p>
+      <div class="hero__divider"></div>
+      <div class="hero__badge">
+        <span class="badge-leaf"><img src="img/hoja.png" alt="hoja"></span>
+        <span data-i18n="donar.hero.badge">Pequeñas acciones, gran impacto.</span>
+      </div>
+    </div>
+    <div class="donar-hero__image">
+      <img src="img/banner donar.png" alt="Donar banner" class="donar-hero__banner-img">
+    </div>
+    <div class="donar-hero__card-float donar-hero__card-float--top">
+      <span class="donar-hero__card-icon"><img src="img/personas.png" alt="manos"></span>
+      <div>
+        <strong data-i18n="donar.hero.card.title">Comunidad que se apoya</strong>
+        <p data-i18n="donar.hero.card.desc">Conecta, comparte y beneficia a miles de personas tu comunidad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TABS ========== -->
+  <section class="donar-tabs-section">
+    <div class="donar-tabs">
+      <button class="donar-tab active" data-tab="donar">
+        <span class="donar-tab-icon"><img src="img/corazon.png" alt="corazón"></span> <span data-i18n="donar.tab.donar">Quiero donar</span>
+      </button>
+      <button class="donar-tab" data-tab="solicitar">
+        <span class="donar-tab-icon"><img src="img/manos.png" alt="manos"></span> <span data-i18n="donar.tab.solicitar">Solicito ayuda</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ========== FORMULARIOS ========== -->
+  <section class="donar-forms-section">
+
+    <!-- FORM: DONAR -->
+    <div class="donar-form-panel active" id="panel-donar">
+      <div class="donar-form-header">
+        <span class="donar-form-icon"><img src="img/corazon.png" alt="corazón"></span>
+        <div>
+          <h2 data-i18n="donar.form1.title">Quiero donar</h2>
+          <p data-i18n="donar.form1.desc">Ofrece objetos que ya no usas y ponlos a disposición de quien más los necesita.</p>
+        </div>
+        <span class="donar-form-icon2"><img src="img/caja.png" alt="caja"></span>
+      </div>
+
+      <div class="donar-form-grid">
+        <!-- Col izquierda -->
+        <div class="donar-form-col">
+          <label class="donar-label" data-i18n="donar.form.label.categoria1">¿Qué vas a donar?</label>
+          <select class="donar-input" id="donacion-categoria">
+            <option value="" data-i18n="donar.form.opt.categoria">Selecciona una categoría</option>
+            <option data-i18n="donar.form.opt.ropa">Ropa y calzado</option>
+            <option data-i18n="donar.form.opt.electronicos">Electrónicos</option>
+            <option data-i18n="donar.form.opt.muebles">Muebles</option>
+            <option data-i18n="donar.form.opt.libros">Libros y útiles</option>
+            <option data-i18n="donar.form.opt.juguetes">Juguetes</option>
+            <option data-i18n="donar.form.opt.alimentos">Alimentos no perecederos</option>
+            <option data-i18n="donar.form.opt.otro">Otro</option>
+          </select>
+
+          <label class="donar-label" data-i18n="donar.form.label.disponibilidad">¿Disponibilidad?</label>
+          <select class="donar-input">
+            <option value="" data-i18n="donar.form.opt.disponibilidad">Selecciona disponibilidad</option>
+            <option data-i18n="donar.form.opt.inmediata">Inmediata</option>
+            <option data-i18n="donar.form.opt.semana">Esta semana</option>
+            <option data-i18n="donar.form.opt.mes">Este mes</option>
+          </select>
+
+          <label class="donar-label" data-i18n="donar.form.label.descripcion">Descripción</label>
+          <textarea class="donar-input donar-textarea" placeholder="Describe el artículo: estado, cantidad, detalles importantes..." data-i18n="donar.form1.ph.desc"></textarea>
+        </div>
+
+        <!-- Col derecha -->
+        <div class="donar-form-col">
+          <label class="donar-label" data-i18n="donar.form.label.ubicacion">Ubicación</label>
+          <input type="text" class="donar-input" placeholder="Tu ciudad o barrio" data-i18n="donar.form.ph.ubicacion" />
+
+          <label class="donar-label" data-i18n="donar.form.label.punto">Punto funcional</label>
+          <select class="donar-input">
+            <option value="" data-i18n="donar.form.opt.punto1">Selecciona punto</option>
+            <option data-i18n="donar.form.opt.domicilio">Entrega en mi domicilio</option>
+            <option data-i18n="donar.form.opt.acopio">Punto de acopio cercano</option>
+            <option data-i18n="donar.form.opt.centro">Centro comunitario</option>
+          </select>
+
+          <!-- Zona de imagen -->
+          <label class="donar-label" data-i18n="donar.form1.label.foto">Foto del artículo</label>
+          <div class="donar-upload" id="dropzone">
+            <span class="donar-upload-icon">📷</span>
+            <p data-i18n="donar.form.upload.text">Arrastra una imagen aquí<br>o <strong>haz clic para subir</strong></p>
+            <input type="file" id="fileInput" accept="image/*" style="display:none" />
+          </div>
+          <div id="preview-container" class="donar-preview-container" style="display:none;">
+            <img id="preview-img" alt="Vista previa" />
+            <button class="donar-remove-img" id="removeImg">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="donar-form-footer">
+        <p class="donar-form-note" data-i18n="donar.form.terminos">Al publicar, aceptas los <a href="#">Términos de uso</a> de RECO+.</p>
+        <button class="donar-submit-btn" id="btnDonar" data-i18n="donar.form1.submit">✔ Publicar donación</button>
+      </div>
+    </div>
+
+    <!-- FORM: SOLICITAR -->
+    <div class="donar-form-panel" id="panel-solicitar">
+      <div class="donar-form-header">
+        <span class="donar-form-icon"><img src="img/manos.png" alt="manos"></span>
+        <div>
+          <h2 data-i18n="donar.form2.title">Solicito ayuda</h2>
+          <p data-i18n="donar.form2.desc">Publica lo que necesitas y conecta con personas de tu comunidad dispuestas a ayudarte.</p>
+        </div>
+        <span class="donar-form-icon2"><img src="img/mundo con manos.png" alt="ayuda"></span>
+      </div>
+
+      <div class="donar-form-grid">
+        <div class="donar-form-col">
+          <label class="donar-label" data-i18n="donar.form.label.categoria2">¿Qué necesitas?</label>
+          <select class="donar-input">
+            <option value="" data-i18n="donar.form.opt.categoria">Selecciona una categoría</option>
+            <option data-i18n="donar.form.opt.ropa">Ropa y calzado</option>
+            <option data-i18n="donar.form.opt.electronicos">Electrónicos</option>
+            <option data-i18n="donar.form.opt.muebles">Muebles</option>
+            <option data-i18n="donar.form.opt.libros">Libros y útiles</option>
+            <option data-i18n="donar.form.opt.alimentos2">Alimentos</option>
+            <option data-i18n="donar.form.opt.otro">Otro</option>
+          </select>
+
+          <label class="donar-label" data-i18n="donar.form.label.disponibilidad">¿Disponibilidad?</label>
+          <select class="donar-input">
+            <option value="" data-i18n="donar.form.opt.disponibilidad">Selecciona disponibilidad</option>
+            <option data-i18n="donar.form.opt.cuanto-antes">Lo antes posible</option>
+            <option data-i18n="donar.form.opt.semana">Esta semana</option>
+            <option data-i18n="donar.form.opt.mes">Este mes</option>
+          </select>
+
+          <label class="donar-label" data-i18n="donar.form.label.descripcion">Descripción</label>
+          <textarea class="donar-input donar-textarea" placeholder="Describe qué necesitas, para qué y cualquier detalle relevante..." data-i18n="donar.form2.ph.desc"></textarea>
+        </div>
+
+        <div class="donar-form-col">
+          <label class="donar-label" data-i18n="donar.form.label.ubicacion">Ubicación</label>
+          <input type="text" class="donar-input" placeholder="Tu ciudad o barrio" data-i18n="donar.form.ph.ubicacion" />
+
+          <label class="donar-label" data-i18n="donar.form.label.punto">Punto funcional</label>
+          <select class="donar-input">
+            <option value="" data-i18n="donar.form.opt.punto2">Selecciona punto de recepción</option>
+            <option data-i18n="donar.form.opt.visita">Me pueden visitar</option>
+            <option data-i18n="donar.form.opt.recojo">Recojo en punto de acopio</option>
+            <option data-i18n="donar.form.opt.acuerdo">Acuerdo con donante</option>
+          </select>
+
+          <label class="donar-label" data-i18n="donar.form2.label.foto">Foto de referencia <span class="donar-optional" data-i18n="donar.form.opcional">(opcional)</span></label>
+          <div class="donar-upload" id="dropzone2">
+            <span class="donar-upload-icon">📷</span>
+            <p data-i18n="donar.form.upload.text">Arrastra una imagen aquí<br>o <strong>haz clic para subir</strong></p>
+            <input type="file" id="fileInput2" accept="image/*" style="display:none" />
+          </div>
+        </div>
+      </div>
+
+      <div class="donar-form-footer">
+        <p class="donar-form-note" data-i18n="donar.form.terminos">Al publicar, aceptas los <a href="#">Términos de uso</a> de RECO+.</p>
+        <button class="donar-submit-btn donar-submit-btn--solicitar" id="btnSolicitar" data-i18n="donar.form2.submit">✔ Publicar solicitud</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== TRUST BADGES ========== -->
+  <section class="donar-trust">
+    <div class="donar-trust-grid">
+      <div class="donar-trust-item">
+        <span class="donar-trust-icon"><img src="img/escudo.png" alt="escudo"></span>
+        <div>
+          <strong data-i18n="donar.trust1.title">Comunidad segura y confiable</strong>
+          <p data-i18n="donar.trust1.desc">Verificamos perfiles y publicaciones.</p>
+        </div>
+      </div>
+      <div class="donar-trust-item">
+        <span class="donar-trust-icon"><img src="img/reciclaje.png" alt="reciclaje"></span>
+        <div>
+          <strong data-i18n="donar.trust2.title">Políticas claras</strong>
+          <p data-i18n="donar.trust2.desc">Sabemos qué puedes donar y qué no.</p>
+        </div>
+      </div>
+      <div class="donar-trust-item">
+        <span class="donar-trust-icon"><img src="img/personas.png" alt="personas"></span>
+        <div>
+          <strong data-i18n="donar.trust3.title">Comunidad activa</strong>
+          <p data-i18n="donar.trust3.desc">Miles de personas listas para ayudar.</p>
+        </div>
+      </div>
+      <div class="donar-trust-item">
+        <span class="donar-trust-icon"><img src="img/mundo.png" alt="mundo"></span>
+        <div>
+          <strong data-i18n="donar.trust4.title">Impacto y sostenibilidad</strong>
+          <p data-i18n="donar.trust4.desc">Cada acción genera un cambio real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MODAL ÉXITO ========== -->
+  <div class="donar-modal-overlay" id="donarModal">
+    <div class="donar-modal">
+      <span class="donar-modal-check">✅</span>
+      <h3 id="modalTitle">¡Publicación enviada!</h3>
+      <p id="modalMsg">Tu donación ha sido publicada exitosamente. La comunidad RECO+ ya puede verla.</p>
+      <button class="donar-modal-close-btn" id="closeModal">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <div class="footer-logo"><img src="img/hoja.png" alt="hoja"> <strong>RECO+</strong></div>
+            <p data-i18n="footer.tagline">El plus que el planeta necesita.</p>
+            <div class="redes">
+                <a href="#">f</a>
+                <a href="#">in</a>
+                <a href="#">tk</a>
+                <a href="#">▶</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4 data-i18n="footer.nav">Navegación</h4>
+            <a href="mapa.html" data-i18n="nav.mapa">Mapa</a>
+            <a href="guia.html" data-i18n="nav.guia">Guía</a>
+            <a href="donar.html" data-i18n="nav.donar">Donar / Ayuda</a>
+            <a href="#tienda">Tienda EcoTech</a>
+            <a href="alianzas.html" data-i18n="nav.alianzas">Alianzas</a>
+            <a href="blog.html" data-i18n="nav.blog">Blog</a>
+            <a href="contacto.html" data-i18n="nav.contacto">Contacto</a>
+        </div>
+        <div class="footer-col">
+            <h4 data-i18n="footer.recursos">Recursos</h4>
+            <a href="#" data-i18n="footer.ayuda">Centro de ayuda</a>
+            <a href="#" data-i18n="footer.faq">Preguntas frecuentes</a>
+            <a href="#" data-i18n="footer.terminos">Términos y condiciones</a>
+            <a href="#" data-i18n="footer.privacidad">Política de privacidad</a>
+        </div>
+        <div class="footer-col">
+            <h4 data-i18n="footer.contacto">Contacto</h4>
+            <p>hola@RECO-plus.com</p>
+            <p>+57 300 123 4567</p>
+            <p>Medellin, Colombia</p>
+        </div>
+        <div class="footer-col">
+            <h4 data-i18n="footer.newsletter">Newsletter</h4>
+            <p data-i18n="footer.nl.desc">Recibe tips, noticias y oportunidades para ayudar.</p>
+            <div class="newsletter-form">
+                <input type="email" placeholder="Tu correo electrónico" data-i18n="footer.nl.ph">
+                <button data-i18n="footer.nl.btn">Suscribirme</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p data-i18n="footer.copy">© 2026 RECO+. Todos los derechos reservados.</p>
+    </div>
+</footer>
+  <script src="i18n.js"></script>
+  <script src="nav-preview.js"></script>
+  <script src="donar.js"></script>
+  <script src="search.js"></script>
+</body>
+</html>

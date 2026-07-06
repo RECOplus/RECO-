@@ -1,0 +1,1047 @@
+/* ===========================
+   DONAR PAGE — donar.css
+   Usa las mismas variables de color que styles.css
+   =========================== */
+
+/* ---- HERO ---- */
+.donar-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 340px;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  padding: 130px 60px 50px;
+  margin-top: 0;
+}
+
+/* La imagen ocupa todo el hero como fondo */
+.donar-hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.donar-hero__banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  display: block;
+  border-radius: 0;
+}
+
+/* Overlay semitransparente a la izquierda para legibilidad del texto */
+.donar-hero__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0.97) 0%,
+    rgba(255,255,255,0.82) 38%,
+    rgba(255,255,255,0.45) 60%,
+    rgba(255,255,255,0.00) 78%
+  );
+  z-index: 1;
+}
+
+/* Quitar las pseudo-hojas decorativas del hero */
+.donar-hero::before,
+.donar-hero::after {
+  display: none;
+}
+
+.donar-hero__content {
+  max-width: 440px;
+  z-index: 2;
+  position: relative;
+  margin-top: -20px;
+}
+
+.donar-hero__title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 900;
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  color: #1a5c2a;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+
+.donar-hero__subtitle {
+  font-size: 0.93rem;
+  font-weight: 400;
+  color: #1a2e1e;
+  line-height: 1.6;
+  margin-bottom: 18px;
+  max-width: 320px;
+}
+
+/* Tarjeta flotante — ahora en esquina inferior derecha */
+.donar-hero__card-float {
+  position: absolute;
+  bottom: 24px;
+  right: 25px;
+  top: auto;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 220px;
+  box-shadow: 0 4px 18px rgba(30, 80, 40, 0.14);
+  border: 1.5px solid #c8e6c9;
+  animation: floatCard 3s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.donar-hero__card-float span {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.donar-hero__card-float strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1a5c2a;
+  margin-bottom: 3px;
+}
+
+.donar-hero__card-float p {
+  font-size: 0.72rem;
+  color: #4a6b52;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.donar-hero__card-icon img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+/* ---- TABS ---- */
+.donar-tabs-section {
+  background: #f2faf4;
+  padding: 28px 40px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.donar-tabs {
+  display: flex;
+  gap: 0;
+  background: #ffffff;
+  border-radius: 50px;
+  padding: 5px;
+  box-shadow: 0 2px 12px rgba(30, 80, 40, 0.1);
+  border: 1.5px solid #a8dab5;
+}
+
+.donar-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 36px;
+  border-radius: 50px;
+  border: none;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: #4a6b52;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.donar-tab:hover {
+  color: #2d8c4e;
+}
+
+.donar-tab.active {
+  background: #2d8c4e;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(45, 140, 78, 0.3);
+}
+
+.donar-tab-icon img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+/* ---- FORMS SECTION ---- */
+.donar-forms-section {
+  background: #f2faf4;
+  padding: 30px 40px 50px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.donar-form-panel {
+  display: none;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px 40px;
+  box-shadow: 0 4px 24px rgba(30, 80, 40, 0.1);
+  border: 1.5px solid #a8dab5;
+  animation: panelIn 0.3s ease;
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.donar-form-panel.active {
+  display: block;
+}
+
+/* Header del formulario */
+.donar-form-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e8f5ec;
+}
+
+.donar-form-icon {
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+
+.donar-form-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.donar-form-header h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: #1a5c2a;
+  margin-bottom: 4px;
+}
+
+.donar-form-header p {
+  font-size: 0.9rem;
+  color: #4a6b52;
+  margin: 0;
+}
+
+/* Grid del formulario: 2 columnas */
+.donar-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.donar-form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Labels */
+.donar-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a5c2a;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.donar-optional {
+  font-weight: 400;
+  color: #8aab90;
+  font-size: 0.78rem;
+}
+
+/* Inputs comunes */
+.donar-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #a8dab5;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: #1a2e1e;
+  background: #f2faf4;
+  outline: none;
+  transition: border-color 0.22s, box-shadow 0.22s;
+  resize: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.donar-input:focus {
+  border-color: #2d8c4e;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(45, 140, 78, 0.12);
+}
+
+.donar-textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* Zona de carga de imagen */
+.donar-upload {
+  border: 2px dashed #a8dab5;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  background: #f2faf4;
+  transition: border-color 0.22s, background 0.22s;
+  margin-top: 4px;
+}
+
+.donar-upload:hover,
+.donar-upload.dragover {
+  border-color: #2d8c4e;
+  background: #e8f5ec;
+}
+
+.donar-upload-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.donar-upload p {
+  font-size: 0.82rem;
+  color: #4a6b52;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.donar-upload p strong {
+  color: #2d8c4e;
+  cursor: pointer;
+}
+
+/* Vista previa de imagen */
+.donar-preview-container {
+  position: relative;
+  margin-top: 8px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid #a8dab5;
+}
+
+.donar-preview-container img {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.donar-remove-img {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.donar-remove-img:hover {
+  background: rgba(200, 0, 0, 0.75);
+}
+
+/* Footer del formulario */
+.donar-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1.5px solid #e8f5ec;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.donar-form-note {
+  font-size: 0.8rem;
+  color: #8aab90;
+  margin: 0;
+}
+
+.donar-form-note a {
+  color: #2d8c4e;
+  text-decoration: underline;
+}
+
+.donar-submit-btn {
+  padding: 13px 36px;
+  background: #2d8c4e;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.97rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.22s, transform 0.18s, box-shadow 0.22s;
+  box-shadow: 0 4px 16px rgba(45, 140, 78, 0.28);
+  letter-spacing: 0.01em;
+}
+
+.donar-submit-btn:hover {
+  background: #1a5c2a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(45, 140, 78, 0.36);
+}
+
+.donar-submit-btn--solicitar {
+  background: #2563a8;
+  box-shadow: 0 4px 16px rgba(37, 99, 168, 0.28);
+}
+
+.donar-submit-btn--solicitar:hover {
+  background: #1a4480;
+  box-shadow: 0 6px 24px rgba(37, 99, 168, 0.36);
+}
+
+/* ---- TRUST BADGES ---- */
+.donar-trust {
+  background: #1a5c2a;
+  padding: 40px;
+}
+
+.donar-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.donar-trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  color: #fff;
+}
+
+.donar-trust-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.donar-trust-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.donar-trust-item strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.donar-trust-item p {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* ---- MODAL ÉXITO ---- */
+.donar-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+
+.donar-modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.donar-modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 44px 40px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 50px rgba(30, 80, 40, 0.22);
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.donar-modal-overlay.open .donar-modal {
+  transform: translateY(0) scale(1);
+}
+
+.donar-modal-check {
+  font-size: 3.2rem;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.donar-modal h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #1a5c2a;
+  margin-bottom: 10px;
+}
+
+.donar-modal p {
+  font-size: 0.9rem;
+  color: #4a6b52;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.donar-modal-close-btn {
+  padding: 11px 32px;
+  background: #2d8c4e;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.donar-modal-close-btn:hover {
+  background: #1a5c2a;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1000px) {
+  .donar-trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .donar-hero {
+    padding: 90px 24px 40px;
+    min-height: 220px;
+    height: auto;
+    text-align: left;
+  }
+
+  .donar-hero__image::after {
+    background: linear-gradient(to right, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.6) 55%, rgba(255,255,255,0.0) 85%);
+  }
+
+  .donar-hero__card-float {
+    display: none;
+  }
+
+  .donar-forms-section {
+    padding: 24px 18px 40px;
+  }
+
+  .donar-form-panel {
+    padding: 24px 18px;
+  }
+
+  .donar-form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .donar-tabs-section {
+    padding: 24px 18px 0;
+  }
+
+  .donar-tab {
+    padding: 10px 20px;
+    font-size: 0.88rem;
+  }
+
+  .donar-form-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .donar-submit-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 580px) {
+  .donar-trust {
+    padding: 28px 18px;
+  }
+
+  .donar-trust-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+.footer-logo img {
+    width: 30px;
+    height: 30px;
+}
+/* ---- NAVBAR OVERRIDES ---- */
+
+/* Quitar línea/borde blanco del navbar */
+.navbar {
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* Links del nav: hover en verde + línea verde abajo */
+.navbar__links a {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.22s;
+}
+
+.navbar__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: #2d8c4e;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: left;
+}
+
+.navbar__links a:hover {
+  color: #2d8c4e;
+}
+
+.navbar__links a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Sección activa (la página actual) también en verde con línea */
+.navbar__links a.active {
+  color: #2d8c4e;
+  font-weight: 600;
+}
+
+.navbar__links a.active::after {
+  transform: scaleX(1);
+}
+
+.donar-form-icon2 img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  right: 20px;
+  display: flex;
+}
+
+.lang-label-es img {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+}
+
+.lang-label-es {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #333;
+}
+
+.lang-label-en img {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+}
+.lang-label-en {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* ── BUBBLE NAV — CSS variables for light/dark ── */
+
+:root {
+  --nav-bg:               rgba(242, 250, 244, 0.55);
+  --nav-border:           rgba(168, 218, 181, 0.55);
+  --nav-shadow:           0 8px 32px rgba(30, 80, 40, 0.14), 0 2px 8px rgba(30, 80, 40, 0.08);
+  --nav-link-color:       #2a4a34;
+  --nav-link-hover-bg:    rgba(45, 140, 78, 0.10);
+  --nav-link-hover-color: #1a5c2a;
+  --nav-link-active-bg:   rgba(45, 140, 78, 0.14);
+  --nav-logo-filter:      none;
+  --nav-lang-bg:          rgba(45, 140, 78, 0.08);
+  --nav-lang-border:      rgba(45, 140, 78, 0.22);
+  --nav-lang-color:       #2a4a34;
+  --nav-dm-bg:            rgba(45, 140, 78, 0.08);
+  --nav-dm-border:        rgba(45, 140, 78, 0.22);
+  --nav-cta-bg:           #2d8c4e;
+  --nav-cta-color:        #fff;
+  --nav-cta-hover:        #1a5c2a;
+}
+
+html.dark {
+  --nav-bg:               rgba(12, 22, 14, 0.55);
+  --nav-border:           rgba(61, 170, 96, 0.20);
+  --nav-shadow:           0 8px 32px rgba(0, 0, 0, 0.40), 0 2px 8px rgba(0, 0, 0, 0.28);
+  --nav-link-color:       rgba(212, 234, 216, 0.80);
+  --nav-link-hover-bg:    rgba(255, 255, 255, 0.08);
+  --nav-link-hover-color: #d4ead8;
+  --nav-link-active-bg:   rgba(255, 255, 255, 0.11);
+  --nav-logo-filter:      brightness(0) invert(1);
+  --nav-lang-bg:          rgba(255, 255, 255, 0.07);
+  --nav-lang-border:      rgba(255, 255, 255, 0.15);
+  --nav-lang-color:       rgba(212, 234, 216, 0.80);
+  --nav-dm-bg:            rgba(255, 255, 255, 0.07);
+  --nav-dm-border:        rgba(255, 255, 255, 0.15);
+  --nav-cta-bg:           #fff;
+  --nav-cta-color:        #111;
+  --nav-cta-hover:        #e8f5ec;
+}
+
+.bubble-nav-wrapper {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: calc(100% - 48px);
+  max-width: 1160px;
+}
+
+.bubble-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--nav-border);
+  border-radius: 999px;
+  padding: 10px 14px 10px 20px;
+  box-shadow: var(--nav-shadow);
+  gap: 16px;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.bubble-nav__logo img {
+  height: 34px;
+  width: auto;
+  display: block;
+  filter: var(--nav-logo-filter);
+  flex-shrink: 0;
+  transition: filter 0.3s;
+}
+
+.bubble-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+
+.bubble-nav__links a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--nav-link-color);
+  text-decoration: none;
+  padding: 6px 13px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: color 0.18s, background 0.18s;
+}
+
+.bubble-nav__links a:hover {
+  color: var(--nav-link-hover-color);
+  background: var(--nav-link-hover-bg);
+}
+
+.bubble-nav__links a.active {
+  color: var(--nav-link-hover-color);
+  background: var(--nav-link-active-bg);
+  font-weight: 600;
+}
+
+.bubble-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.bubble-nav .lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--nav-lang-bg);
+  border: 1px solid var(--nav-lang-border);
+  border-radius: 999px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.bubble-nav .lang-toggle:hover {
+  background: var(--nav-link-hover-bg);
+}
+
+.bubble-nav .lang-label-es,
+.bubble-nav .lang-label-en {
+  font-size: 0.78rem;
+  color: var(--nav-lang-color) !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.3s;
+}
+
+.bubble-nav .lang-label-es img,
+.bubble-nav .lang-label-en img {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.bubble-nav .lang-track {
+  width: 28px;
+  height: 16px;
+  background: var(--nav-lang-border);
+  border-radius: 999px;
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+}
+
+.bubble-nav .lang-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  transition: left 0.22s;
+}
+
+.bubble-nav .dm-toggle {
+  background: var(--nav-dm-bg);
+  border: 1px solid var(--nav-dm-border);
+  border-radius: 999px;
+  padding: 5px 9px;
+  gap: 5px;
+  font-size: 12px;
+  transition: background 0.18s;
+}
+
+.bubble-nav .dm-toggle:hover {
+  background: var(--nav-link-hover-bg);
+}
+
+.bubble-nav .dm-track {
+  background: var(--nav-lang-border) !important;
+}
+
+.bubble-nav__cta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--nav-cta-bg);
+  color: var(--nav-cta-color);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.bubble-nav__cta:hover {
+  background: var(--nav-cta-hover);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 860px) {
+  .bubble-nav-wrapper { width: calc(100% - 24px); top: 10px; }
+  .bubble-nav__links  { display: none; }
+  .bubble-nav         { padding: 10px 14px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   BUBBLE BUTTON EFFECTS — donar.css
+   Efectos burbuja, highlight, sombra y shimmer sin cambiar colores.
+═══════════════════════════════════════════════════════════════ */
+
+.donar-tab,
+.donar-submit-btn,
+.donar-modal-close-btn,
+.bubble-nav__cta,
+.bubble-nav .lang-toggle,
+.bubble-nav .dm-toggle,
+.newsletter-form button,
+.redes a,
+.hero__badge {
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.10),
+    0 2px 6px rgba(0, 0, 0, 0.14),
+    0 1px 2px rgba(0, 0, 0, 0.08);
+  transition:
+    box-shadow 0.25s cubic-bezier(.4,0,.2,1),
+    transform 0.18s cubic-bezier(.4,0,.2,1),
+    background 0.22s,
+    color 0.22s,
+    border-color 0.22s;
+}
+
+.donar-tab::before,
+.donar-submit-btn::before,
+.donar-modal-close-btn::before,
+.bubble-nav__cta::before,
+.bubble-nav .lang-toggle::before,
+.bubble-nav .dm-toggle::before,
+.newsletter-form button::before,
+.redes a::before,
+.hero__badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.48s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.donar-tab:hover::before,
+.donar-submit-btn:hover::before,
+.donar-modal-close-btn:hover::before,
+.bubble-nav__cta:hover::before,
+.bubble-nav .lang-toggle:hover::before,
+.bubble-nav .dm-toggle:hover::before,
+.newsletter-form button:hover::before,
+.redes a:hover::before,
+.hero__badge:hover::before {
+  transform: translateX(100%);
+}
+
+.donar-tab:hover,
+.donar-submit-btn:hover,
+.donar-modal-close-btn:hover,
+.bubble-nav__cta:hover,
+.bubble-nav .lang-toggle:hover,
+.bubble-nav .dm-toggle:hover,
+.newsletter-form button:hover,
+.redes a:hover,
+.hero__badge:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.14),
+    0 6px 18px rgba(0, 0, 0, 0.18),
+    0 2px 5px rgba(0, 0, 0, 0.10);
+  transform: translateY(-2px) scale(1.025);
+}
+
+.donar-tab:active,
+.donar-submit-btn:active,
+.donar-modal-close-btn:active,
+.bubble-nav__cta:active,
+.bubble-nav .lang-toggle:active,
+.bubble-nav .dm-toggle:active,
+.newsletter-form button:active,
+.redes a:active,
+.hero__badge:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 2px 4px rgba(0, 0, 0, 0.16),
+    0 1px 2px rgba(0, 0, 0, 0.10);
+}
+
+/* donar-tab activo no sube — solo sombra burbuja */
+.donar-tab.active {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.14),
+    0 3px 10px rgba(0, 0, 0, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .donar-tab::before, .donar-submit-btn::before,
+  .donar-modal-close-btn::before, .bubble-nav__cta::before,
+  .bubble-nav .lang-toggle::before, .bubble-nav .dm-toggle::before,
+  .newsletter-form button::before, .redes a::before,
+  .hero__badge::before { display: none; }
+
+  .donar-tab:hover, .donar-submit-btn:hover,
+  .donar-modal-close-btn:hover, .bubble-nav__cta:hover,
+  .newsletter-form button:hover, .redes a:hover,
+  .hero__badge:hover { transform: none; }
+}
